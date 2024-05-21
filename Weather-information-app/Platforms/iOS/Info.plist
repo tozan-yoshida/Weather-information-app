@@ -28,5 +28,7 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+	<key>NSCameraUsageDescription</key> <!--追記-->>
+	<string>This app uses barcode scanning to enroll the device</string> <!--追記-->
 </dict>
 </plist>
