@@ -15,7 +15,7 @@ namespace Weather_information_app
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 })
-                .UseBarcodeReader();
+                .UseBarcodeReader(); // 追記
 
 #if DEBUG
     		builder.Logging.AddDebug();

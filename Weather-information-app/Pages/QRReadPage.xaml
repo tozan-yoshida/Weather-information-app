@@ -4,20 +4,22 @@
              xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
              x:Class="Weather_information_app.Pages.QRReadPage"
              Title="QRReadPage">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
-        </Grid.RowDefinitions>
+    <VerticalStackLayout>
         <zxing:CameraBarcodeReaderView
             x:Name="cameraBarcodeReader"
-            Grid.Row="0"
-            BarcodesDetected="cameraBarcodeReader_BarcodesDetected">
+            BarcodesDetected="cameraBarcodeReader_BarcodesDetected"
+            HeightRequest="500"
+            WidthRequest="200">
         </zxing:CameraBarcodeReaderView>
         <Label
-            x:Name="lblText"
-            Grid.Row="1"
             HorizontalOptions="Center"
-            VerticalOptions="Center"></Label>
-    </Grid>
+            Text="QRコードを"
+            />
+        <Label
+            HorizontalOptions="Center"
+            Text="読み取ってください"/>
+        <Label
+            x:Name="lblText"
+            HorizontalOptions="Center"></Label>
+    </VerticalStackLayout>
 </ContentPage>
