@@ -1,27 +1,42 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Weather_information_app.Data
 {
-    public class RestService
+    public static class RestService
     {
-        public string lon { get; set; } // 緯度
-        public string lat { get; set; } // 経度
-        private string url;
+       
+        private static readonly string BaseAddress1 = "https://api.openweathermap.org/data/2.5/weather?q=";
+        private static readonly string BaseAddress2 = "&appid=3bd246bbaa5667a22974b88af896fe4d&lang=ja&units=metric";
         static HttpClient client;
 
-        public RestService(string lon, string lat) 
+        private static HttpClient GetClient()
         {
-            this.lon = lon;
-            this.lat = lat;
-            url = @$"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=3bd246bbaa5667a22974b88af896fe4d&lang=ja&units=metric";
+            if(client != null) 
+                return client;
+
             client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+
+            return client;
         }
 
-        
+        public static async Task<WeatherInformation> GetAll(string city, string country)
+        {
+            if(Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+                return new WeatherInformation();
+            
+            client = GetClient();
+            string result = await client.GetStringAsync($@"{BaseAddress1}{city},{country}{BaseAddress2}");
+            return JsonSerializer.Deserialize<WeatherInformation>(result, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+            })!;
+        }
     }
 }
