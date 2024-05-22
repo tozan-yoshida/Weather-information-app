@@ -19,7 +19,10 @@
             HorizontalOptions="Center"
             Text="読み取ってください"/>
         <Label
-            x:Name="lblText"
+            x:Name="city"
             HorizontalOptions="Center"></Label>
+        <Label
+            x:Name="country"
+            HorizontalOptions="Center"/>
     </VerticalStackLayout>
 </ContentPage>
