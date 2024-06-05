@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="Weather_information_app.AppShell"
+    BackgroundColor="CornflowerBlue"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Weather_information_app"
+    xmlns:local="clr-namespace:Weather_information_app.Pages"
     Shell.FlyoutBehavior="Disabled"
-    Title="Weather_information_app">
+    Title="Weather_information_app"
+    Shell.TitleColor="White"
+    Shell.TabBarBackgroundColor="CornflowerBlue"
+    >
 
+
+    <TabBar>
+        <Tab Title="QR読取"
+         Icon="qrcode.png">
+        <ShellContent ContentTemplate="{DataTemplate local:QRReadPage}"/>
+        </Tab>
+        <Tab Title="履歴"
+             Icon="calendar.png">
+            <ShellContent ContentTemplate="{DataTemplate local:HistoryDisplayPage}"/>
+        </Tab>
+    </TabBar>
+    
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate local:QRReadPage}"
         Route="MainPage" />
 
+    <ShellContent
+        Title="履歴画面"
+        ContentTemplate="{DataTemplate local:HistoryDisplayPage}"
+        Route="HistoryDisplayPage" />
+
+    <ShellContent
+        x:Name="WeatherInformationPage"
+        Title="天気表示"
+        ContentTemplate="{DataTemplate local:WeatherInformationPage}"
+        Route="WeatherInformationPage" />
 </Shell>
