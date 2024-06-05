@@ -2,11 +2,56 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Weather_information_app.Pages.WeatherInformationPage"
-             Title="WeatherInformationPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to Weather Info..."
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="天気表示">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="tempNameLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="35"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="End" />
+                <Setter Property="Grid.Column" Value="0"/>
+            </Style>
+            <Style x:Key="tempLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="50"/>
+                <Setter Property="Grid.Column" Value="2"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" FontSize="35"
+               x:Name="dateTime"/>
+        <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+               HeightRequest="250" WidthRequest="250"
+                HorizontalOptions="Center"
+               x:Name="image"/>
+        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalOptions="Center" FontSize="60"
+               x:Name="weather"/>
+        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Text="━━━━━━━━━━━━━━━━━━━━━━━━" FontSize="15"/>
+        <Label Grid.Row="4" Style="{StaticResource tempNameLabelStyle}"
+               Text="現在" />
+        <Label Grid.Row="4" Style="{StaticResource tempLabelStyle}"
+               x:Name="temp"/>
+        <Label Grid.Row="5" Style="{StaticResource tempNameLabelStyle}" TextColor="Red"
+               Text="最高" />
+        <Label Grid.Row="5" Style="{StaticResource tempLabelStyle}" TextColor="Red"
+               x:Name="maxTemp"/>
+        <Label Grid.Row="6" Style="{StaticResource tempNameLabelStyle}" TextColor="Aqua"
+               Text="最低" />
+        <Label Grid.Row="6" Style="{StaticResource tempLabelStyle}" TextColor="Aqua"
+               x:Name="minTemp"/>
+    </Grid>
 </ContentPage>

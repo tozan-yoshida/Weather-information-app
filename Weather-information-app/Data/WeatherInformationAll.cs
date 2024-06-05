@@ -2,42 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Weather_information_app.Data
 {
+
     /// <summary>
     /// 天気の情報全般のクラス
     /// </summary>
     [Serializable]
-    public class WeatherInformation
+    public class WeatherInformationAll
     {
         public Dictionary<string, double>? coord {  get; set; }
 
         public IList<Dictionary<string, dynamic>>? weather {  get; set; }        
-        public string? infoBase {  get; set; }
+        public string? @base {  get; set; }
 
         public Dictionary<string, double>? main {  get; set; }
 
-        public double visibility;
+        public double visibility {  get; set; }
 
         public Dictionary<string, double>? wind { get; set; }
 
-       public Dictionary<string, double>? rain { get; set; }
-
         public Dictionary<string, double>? clouds { get; set; }
 
-        public double dt;
+        public double dt {  get; set; }
 
         public Dictionary<string,object>? sys { get; set; }
 
-        public int timezone;
+        public int timezone {  get; set; }
 
-        public double id;
+        public double id {  get; set; }
 
-        public string? name;
+        public string? name {  get; set; }
 
-        public int cod;
+        public int cod {  get; set; }
 
     }
 }

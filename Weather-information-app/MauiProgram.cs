@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using ZXing.Net.Maui.Controls;
+using SQLite;
+using Weather_information_app.Pages;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Weather_information_app
 {
@@ -16,6 +19,9 @@ namespace Weather_information_app
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 })
                 .UseBarcodeReader(); // 追記
+
+            builder.Services.TryAddSingleton<LocalDBService>();
+            builder.Services.AddTransient<QRReadPage>();
 
 #if DEBUG
     		builder.Logging.AddDebug();

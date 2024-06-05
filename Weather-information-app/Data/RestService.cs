@@ -13,7 +13,7 @@ namespace Weather_information_app.Data
        
         private static readonly string BaseAddress1 = "https://api.openweathermap.org/data/2.5/weather?q=";
         private static readonly string BaseAddress2 = "&appid=3bd246bbaa5667a22974b88af896fe4d&lang=ja&units=metric";
-        static HttpClient client;
+        static HttpClient? client;
 
         private static HttpClient GetClient()
         {
@@ -26,17 +26,26 @@ namespace Weather_information_app.Data
             return client;
         }
 
-        public static async Task<WeatherInformation> GetAll(string city, string country)
+        public static async Task<WeatherInformationAll> GetAll(string city, string country)
         {
             if(Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
-                return new WeatherInformation();
-            
-            client = GetClient();
-            string result = await client.GetStringAsync($@"{BaseAddress1}{city},{country}{BaseAddress2}");
-            return JsonSerializer.Deserialize<WeatherInformation>(result, new JsonSerializerOptions
+                return new WeatherInformationAll();
+
+            try
             {
-                PropertyNameCaseInsensitive = true,
-            })!;
+                client = GetClient();
+                string result = await client.GetStringAsync($@"{BaseAddress1}{city},{country}{BaseAddress2}");
+                WeatherInformationAll all = JsonSerializer.Deserialize<WeatherInformationAll>(result, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                })!;
+
+                return all;
+            }
+            catch
+            {
+                return null!;
+            }
         }
     }
 }

@@ -2,11 +2,42 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Weather_information_app.Pages.HistoryDisplayPage"
-             Title="HistoryDisplayPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to History"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="取得履歴"
+             xmlns:viewmodel ="clr-namespace:Weather_information_app.ViewModel"
+             xmlns:data="clr-namespace:Weather_information_app.Data"
+             x:DataType="viewmodel:HistoryDisplayViewModel"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="labelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <RefreshView Grid.Row="0" Grid.Column="0" IsRefreshing="{Binding IsRefreshing}" x:Name="refreshview"
+                     Command="{Binding LoadDataCommand}">
+            <CollectionView ItemsSource="{Binding ForDBs}"
+                            SelectedItem="{Binding SelectedData, Mode=TwoWay}"
+                            SelectionChangedCommand="{Binding WeatherInformationSelectedCommand}"
+                            SelectionMode="Single"
+                            HorizontalOptions="Center">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="data:WeatherInformationForDB"
+                                  x:Name="WeatherInformationList">
+                        <Grid HorizontalOptions="Center"
+                              ColumnDefinitions="Auto, Auto, Auto"
+                              ColumnSpacing="10">
+                            <Label Text="{Binding DateTime}" Style="{StaticResource labelStyle}" Grid.Column="0"/>
+                            <Label Text="{Binding City}" Style="{StaticResource labelStyle}" Grid.Column="1"/>
+                            <Image Source="{Binding ImageId, StringFormat='https://openweathermap.org/img/wn/{0}@2x.png'}" HeightRequest="50" WidthRequest="50" VerticalOptions="Center" Grid.Column="2"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
 </ContentPage>
+       

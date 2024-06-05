@@ -3,26 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
              x:Class="Weather_information_app.Pages.QRReadPage"
-             Title="QRReadPage">
-    <VerticalStackLayout>
-        <zxing:CameraBarcodeReaderView
-            x:Name="cameraBarcodeReader"
-            BarcodesDetected="cameraBarcodeReader_BarcodesDetected"
-            HeightRequest="500"
-            WidthRequest="200">
-        </zxing:CameraBarcodeReaderView>
+             Title="QRコード読み取り"
+             Loaded="QRReadPage_Loaded"
+             Unloaded="QRReadPage_Unloaded">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="QRPageLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid
+        x:Name="qrGrid"
+        RowDefinitions="500,Auto,Auto,Auto,Auto">
         <Label
-            HorizontalOptions="Center"
+            Grid.Row="1"
+            Style="{StaticResource QRPageLabelStyle}"
             Text="QRコードを"
             />
         <Label
-            HorizontalOptions="Center"
+            Grid.Row="2"
+            Style="{StaticResource QRPageLabelStyle}"
             Text="読み取ってください"/>
         <Label
-            x:Name="city"
-            HorizontalOptions="Center"></Label>
+            Grid.Row="3"
+            x:Name="empty"
+            Text=""></Label>
         <Label
-            x:Name="country"
-            HorizontalOptions="Center"/>
-    </VerticalStackLayout>
+            Grid.Row="4"
+            x:Name="caution"
+            Style="{StaticResource QRPageLabelStyle}"
+            TextColor="Red"/>
+    </Grid>
 </ContentPage>

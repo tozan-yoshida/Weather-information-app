@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:Weather_information_app"
              x:Class="Weather_information_app.App">
     <Application.Resources>
+        <!--<Style TargetType="TabbedPage">
+            <Setter Property="BarBackgroundColor" Value="Blue"/>
+        </Style>
+        -->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />

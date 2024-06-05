@@ -2,10 +2,12 @@
 {
     public partial class App : Application
     {
-        public App()
+        public static LocalDBService? localDBService { get; private set; }
+
+        public App(LocalDBService dBService)
         {
             InitializeComponent();
-
+            localDBService = dBService;
             MainPage = new AppShell();
         }
     }
