@@ -7,16 +7,11 @@ namespace Weather_information_app.Pages;
 [QueryProperty(nameof(AddWeatherInformation), "WeatherInformationData")]
 public partial class WeatherInformationPage : ContentPage
 {
-	static WeatherInformationForDB forDB = new();
-
 	public WeatherInformationPage()
 	{
 		InitializeComponent();
 
 	}
-
-
-
 
 	public WeatherInformationForDB AddWeatherInformation
 	{

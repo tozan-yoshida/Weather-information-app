@@ -52,8 +52,8 @@ public partial class QRReadPage : ContentPage
 			{
 				try
 				{
-					CityAndCountry? caa = JsonSerializer.Deserialize<CityAndCountry>(barcodeResult.Value);
-					getWeatherInformation(caa!.city!, caa.country!);
+					CityAndCountry cac = JsonSerializer.Deserialize<CityAndCountry>(barcodeResult.Value)!;
+					getWeatherInformation(cac);
 				}
                 catch
                 {
@@ -77,33 +77,32 @@ public partial class QRReadPage : ContentPage
 		qrGrid.Remove(_cameraBarcodeReader);
 	}
 
-	private async void getWeatherInformation(string city, string country)
+	private async void getWeatherInformation(CityAndCountry cac)
 	{
-		if (!busy)
+		if (busy)
+			return;
+
+        busy = true;
+
+        string city = cac.city!;
+		string country = cac.country!;
+
+		WeatherInformationAll weatherInformation = await RestService.GetWeatherInformationAll(city, country);
+		if (weatherInformation != null)
 		{
-			busy = true;
+			var forDB = WeatherInformationAllToDB.Convert(weatherInformation);
+			await App.localDBService!.Add(forDB);
 
-			WeatherInformationAll weatherInformation = await RestService.GetAll(city, country);
-			if (weatherInformation != null)
+			var navigationParameter = new Dictionary<string, object>
 			{
-				var forDB = WeatherInformationAllToDB.Convert(weatherInformation);
-				await App.localDBService!.Add(forDB);
+				{"WeatherInformationData", forDB }
+			};
 
-				var navigationParameter = new Dictionary<string, object>
-				{
-					{"WeatherInformationData", forDB }
-				};
+			await Shell.Current.GoToAsync("weatherInformationPage", navigationParameter);
 
-				await Shell.Current.GoToAsync("weatherInformationPage", navigationParameter);
-
-				await deleteWeatherInformationOver20();
-			}
-			else
-			{
-				caution.Text = "ìVãCèÓïÒéÊìæÇ…é∏îsÇµÇ‹ÇµÇΩÅB";
-            }
-			busy = false;
+			await deleteWeatherInformationOver20();
 		}
+		busy = false;
     }
 
 	/// <summary>
@@ -142,11 +141,4 @@ public partial class QRReadPage : ContentPage
 			return;
 		_cameraBarcodeReader.IsDetecting = true;
     }
-}
-
-public class CityAndCountry
-{
-	public string? city { get; set; }
-
-	public string? country { get; set; }
 }

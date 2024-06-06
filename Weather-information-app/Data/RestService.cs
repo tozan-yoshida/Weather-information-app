@@ -26,7 +26,7 @@ namespace Weather_information_app.Data
             return client;
         }
 
-        public static async Task<WeatherInformationAll> GetAll(string city, string country)
+        public static async Task<WeatherInformationAll> GetWeatherInformationAll(string city, string country)
         {
             if(Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
                 return new WeatherInformationAll();
